@@ -11,6 +11,8 @@
 
 use libc;
 
+pub use self::CGError::*;
+
 // TODO: this is actually a libc::c_float on 32bit
 pub type CGFloat = libc::c_double;
 pub type CGAffineTransform = ();
@@ -42,7 +44,7 @@ pub enum CGError {
     kCGErrorRetryRegistration = 1029,
 }
 
-pub fn desc(err: CGError) -> &'static str {
+fn cg_desc(err: CGError) -> &'static str {
     match err {
         kCGErrorSuccess => "The requested operation was completed successfully.",
         kCGErrorFailure => "A general failure occurred.",
@@ -72,7 +74,7 @@ pub fn desc(err: CGError) -> &'static str {
 
 impl CGError {
     pub fn desc(self) -> &'static str {
-        super::desc(self)
+        cg_desc(self)
     }
 
     pub fn from_i32(val: i32) -> CGError {
@@ -102,4 +104,3 @@ impl CGError {
         }
     }
 }
-
