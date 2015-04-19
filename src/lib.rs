@@ -7,7 +7,7 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-#![crate_name = "core_graphics"]
+#![crate_name = "glutin_core_graphics"]
 #![crate_type = "rlib"]
 
 extern crate libc;
