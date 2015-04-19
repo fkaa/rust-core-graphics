@@ -11,16 +11,43 @@
 
 use libc;
 use base::CGError;
+use geometry::{CGRect, CGPoint, CGSize};
 
 pub type CGDirectDisplayID = libc::uint32_t;
 
 #[link(name = "ApplicationServices", kind = "framework")]
 extern {
     pub fn CGMainDisplayID() -> CGDirectDisplayID;
+    pub fn CGDisplayIsActive(display: CGDirectDisplayID) -> bool;
+    pub fn CGDisplayIsAlwaysInMirrorSet(display: CGDirectDisplayID) -> bool;
+    pub fn CGDisplayIsAsleep(display: CGDirectDisplayID) -> bool;
+    pub fn CGDisplayIsBuiltin(display: CGDirectDisplayID) -> bool;
+    pub fn CGDisplayIsInHWMirrorSet(display: CGDirectDisplayID) -> bool;
+    pub fn CGDisplayIsInMirrorSet(display: CGDirectDisplayID) -> bool;
+    pub fn CGDisplayIsMain(display: CGDirectDisplayID) -> bool;
+    pub fn CGDisplayIsOnline(display: CGDirectDisplayID) -> bool;
+    pub fn CGDisplayIsStereo(display: CGDirectDisplayID) -> bool;
+    pub fn CGDisplayMirrorsDisplay(display: CGDirectDisplayID) -> CGDirectDisplayID;
+    pub fn CGDisplayPrimaryDisplay(display: CGDirectDisplayID) -> CGDirectDisplayID;
+    pub fn CGDisplayRotation(display: CGDirectDisplayID) -> libc::c_double;
+    pub fn CGDisplayScreenSize(display: CGDirectDisplayID) -> CGSize;
+    pub fn CGDisplaySerialNumber(display: CGDirectDisplayID) -> libc::uint32_t;
+    pub fn CGDisplayUnitNumber(display: CGDirectDisplayID) -> libc::uint32_t;
+    pub fn CGDisplayUsesOpenGLAcceleration(display: CGDirectDisplayID) -> bool;
+    pub fn CGDisplayVendorNumber(display: CGDirectDisplayID) -> libc::uint32_t;
     pub fn CGGetActiveDisplayList(max_displays: libc::uint32_t,
                                   active_displays: *mut CGDirectDisplayID,
                                   display_count: *mut libc::uint32_t) -> CGError;
     pub fn CGDisplayModelNumber(display: CGDirectDisplayID) -> libc::uint32_t;
     pub fn CGDisplayPixelsHigh(display: CGDirectDisplayID) -> libc::size_t;
     pub fn CGDisplayPixelsWide(display: CGDirectDisplayID) -> libc::size_t;
+    pub fn CGDisplayBounds(display: CGDirectDisplayID) -> CGRect;
+
+    // mouse stuff
+    pub fn CGDisplayHideCursor(display: CGDirectDisplayID) -> CGError;
+    pub fn CGDisplayShowCursor(display: CGDirectDisplayID) -> CGError;
+    pub fn CGDisplayMoveCursorToPoint(display: CGDirectDisplayID, point: CGPoint) -> CGError;
+    pub fn CGWarpMouseCursorPosition(point: CGPoint) -> CGError;
+    pub fn CGAssociateMouseAndMouseCursorPosition(connected: bool) -> CGError;
+
 }
