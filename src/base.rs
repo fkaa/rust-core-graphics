@@ -18,6 +18,7 @@ pub type CGAffineTransform = ();
 #[repr(i32)]
 #[allow(non_camel_case_types)]
 pub enum CGError {
+    kCGErrorSuccess = 0,
     kCGErrorFailure = 1000,
     kCGErrorIllegalArgument = 1001,
     kCGErrorInvalidConnection = 1002,
@@ -40,8 +41,8 @@ pub enum CGError {
     kCGErrorForkFailed = 1028,
     kCGErrorRetryRegistration = 1029,
 }
-/*
-fn desc(err: CGError) -> &'static str {
+
+pub fn desc(err: CGError) -> &'static str {
     match err {
         kCGErrorSuccess => "The requested operation was completed successfully.",
         kCGErrorFailure => "A general failure occurred.",
